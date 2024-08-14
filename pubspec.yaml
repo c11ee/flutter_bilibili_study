@@ -1,11 +1,11 @@
 name: demo
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.4 <4.0.0'
+  sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
   flutter:
@@ -33,6 +33,8 @@ dependencies:
   flutter_html: ^3.0.0-alpha.6
   # 本地化存储
   shared_preferences: ^2.0.15
+  # swiper
+  flutter_swiper_view: ^1.1.8
 
 dev_dependencies:
   flutter_test:
@@ -42,3 +44,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # 这样声明之后才能使用图片
+  assets:
+    - assets/images/
