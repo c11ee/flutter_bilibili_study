@@ -1,4 +1,6 @@
 import 'package:demo/pages/home_page.dart';
+import 'package:demo/route/route_utils.dart';
+import 'package:demo/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
@@ -32,12 +34,19 @@ class MyApp extends StatelessWidget {
       designSize: designSize,
       builder: (context, child) {
         return MaterialApp(
-            title: "Flutter Demo",
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            home: const HomePage());
+          title: "Flutter Demo",
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          // 全局获取根节点上下文
+          navigatorKey: RouteUtils.navigatorKey,
+          // 路由跳转回调
+          onGenerateRoute: Routes.generaterRoute,
+          // 定义初始页面
+          initialRoute: RoutePath.home,
+          // home: const HomePage()
+        );
       },
     ));
   }

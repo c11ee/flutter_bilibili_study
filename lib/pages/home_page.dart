@@ -1,4 +1,6 @@
 import 'package:demo/pages/web_view_page.dart';
+import 'package:demo/route/route_utils.dart';
+import 'package:demo/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
@@ -58,10 +60,14 @@ class _HomePageState extends State<HomePage> {
     // InkWell() 增加水波纹效果
     return GestureDetector(
       onTap: () {
-        // 在 MaterialPageRoute 中的 settings 设置路由参数
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const WebViewPage(title: "首页跳转来的");
-        }));
+        RouteUtils.push(context, const WebViewPage(title: "首页跳转来的"));
+
+        // Navigator.pushNamed(context, RoutePath.webViewPage);
+
+        // // 在 MaterialPageRoute 中的 settings 设置路由参数
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return const WebViewPage(title: "首页跳转来的");
+        // }));
       },
       child: Container(
         margin: EdgeInsets.only(top: 5.h, bottom: 5.r, left: 10.w, right: 10.r),
