@@ -21,38 +21,27 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // 安全区域内
       body: SafeArea(
+        /// 滚动视图
+        /// 需要知道子组件的高度
+        child: SingleChildScrollView(
           child: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: 150.h,
-            child: Swiper(
-                indicatorLayout: PageIndicatorLayout.NONE,
-                autoplay: true,
-                pagination: const SwiperPagination(),
-                control: const SwiperControl(),
-                itemCount: 3,
+            children: [
+              _banner(),
+              // 使用 `Expanded` 填充所有空白区
+              ListView.builder(
+                // 设为 true, 计算所有子组件的高度，从而导致 `SingleChildScrollView` 知道子组件的高度
+                shrinkWrap: true,
+                // 禁止 ListView 的滑动事件，由 `SingleChildScrollView` 接管
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Container(
-                    // margin: EdgeInsets.all(15.r),
-                    // 宽度撑满
-                    // width: double.infinity,
-                    height: 150.h,
-                    color: Colors.lightBlue,
-                  );
-                }),
+                  return _listItemView();
+                },
+                itemCount: 100,
+              ),
+            ],
           ),
-          // 使用 `Expanded` 填充所有空白区
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return _listItemView();
-              },
-              itemCount: 100,
-            ),
-          ),
-        ],
-      )),
+        ),
+      ),
     );
   }
 
@@ -60,7 +49,11 @@ class _HomePageState extends State<HomePage> {
     // InkWell() 增加水波纹效果
     return GestureDetector(
       onTap: () {
-        RouteUtils.push(context, const WebViewPage(title: "首页跳转来的"));
+        RouteUtils.pushForNamed(
+          context,
+          RoutePath.webViewPage,
+          arguments: {"name": "ccc"},
+        );
 
         // Navigator.pushNamed(context, RoutePath.webViewPage);
 
@@ -143,4 +136,26 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Widget _banner() {
+  return SizedBox(
+    width: double.infinity,
+    height: 150.h,
+    child: Swiper(
+        indicatorLayout: PageIndicatorLayout.NONE,
+        autoplay: true,
+        pagination: const SwiperPagination(),
+        control: const SwiperControl(),
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Container(
+            // margin: EdgeInsets.all(15.r),
+            // 宽度撑满
+            // width: double.infinity,
+            height: 150.h,
+            color: Colors.lightBlue,
+          );
+        }),
+  );
 }

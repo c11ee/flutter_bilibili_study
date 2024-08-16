@@ -14,10 +14,10 @@ class Routes {
 
     switch (name) {
       case RoutePath.home:
-        return pageRoute(const HomePage());
+        return pageRoute(const HomePage(), settings: settings);
 
       case RoutePath.webViewPage:
-        return pageRoute(const WebViewPage(title: '首页跳转来的'));
+        return pageRoute(const WebViewPage(), settings: settings);
 
       default:
         return pageRoute(Scaffold(
