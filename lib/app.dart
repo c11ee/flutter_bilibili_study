@@ -1,4 +1,3 @@
-import 'package:demo/pages/home_page.dart';
 import 'package:demo/route/route_utils.dart';
 import 'package:demo/route/routes.dart';
 import 'package:flutter/material.dart';

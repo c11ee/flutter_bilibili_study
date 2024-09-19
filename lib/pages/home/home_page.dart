@@ -1,4 +1,6 @@
-import 'package:demo/pages/web_view_page.dart';
+import 'package:demo/datas/home_banner_data.dart';
+import 'package:demo/pages/home/home_vm.dart';
+// import 'package:demo/pages/web_view_page.dart';
 import 'package:demo/route/route_utils.dart';
 import 'package:demo/route/routes.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<BannerItemData>? bannerList;
+
+  @override
+  void initState() {
+    super.initState();
+    initBannerData();
+  }
+
+  Future initBannerData() async {
+    bannerList = await HomeViewModel.getBanner();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     // 基本创建页面都使用 Scaffold
@@ -136,26 +151,30 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-Widget _banner() {
-  return SizedBox(
-    width: double.infinity,
-    height: 150.h,
-    child: Swiper(
-        indicatorLayout: PageIndicatorLayout.NONE,
-        autoplay: true,
-        pagination: const SwiperPagination(),
-        control: const SwiperControl(),
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Container(
-            // margin: EdgeInsets.all(15.r),
-            // 宽度撑满
-            // width: double.infinity,
-            height: 150.h,
-            color: Colors.lightBlue,
-          );
-        }),
-  );
+  Widget _banner() {
+    return SizedBox(
+      width: double.infinity,
+      height: 150.h,
+      child: Swiper(
+          indicatorLayout: PageIndicatorLayout.NONE,
+          autoplay: true,
+          pagination: const SwiperPagination(),
+          control: const SwiperControl(),
+          itemCount: bannerList?.length ?? 0,
+          itemBuilder: (context, index) {
+            return SizedBox(
+              // margin: EdgeInsets.all(15.r),
+              // 宽度撑满
+              // width: double.infinity,
+              height: 150.h,
+              // color: Colors.lightBlue,
+              child: Image.network(
+                bannerList?[index].imagePath ?? "",
+                fit: BoxFit.fill,
+              ),
+            );
+          }),
+    );
+  }
 }
